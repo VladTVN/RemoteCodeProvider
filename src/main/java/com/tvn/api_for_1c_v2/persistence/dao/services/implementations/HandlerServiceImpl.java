@@ -14,6 +14,14 @@ public class HandlerServiceImpl implements HandlerService {
     private HandlerRepository handlerRepository;
 
     @Override
+    public Handler findHandlerByNameAndVersion(String name, String version) {
+        return handlerRepository.findFirstByNameAndVersion(name, version);
+    }
+
+
+//  --------------------------------------------------------  For Test
+
+    @Override
     public List<Handler> findAll() {
         return (List<Handler>) handlerRepository.findAll();
     }
@@ -22,4 +30,8 @@ public class HandlerServiceImpl implements HandlerService {
     public void addHandler(Handler handler) {
         handlerRepository.save(handler);
     }
+
+
+
+
 }

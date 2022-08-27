@@ -7,4 +7,6 @@ import java.util.List;
 public interface HandlerService {
     List<Handler> findAll();
     void addHandler(Handler handler);
+
+    Handler findHandlerByNameAndVersion(String name, String version);
 }

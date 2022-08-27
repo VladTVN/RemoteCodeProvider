@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HandlerRepository extends CrudRepository<Handler, Long> {
+    Handler findFirstByNameAndVersion(String name, String version);
 }

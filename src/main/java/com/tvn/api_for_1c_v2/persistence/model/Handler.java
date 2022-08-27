@@ -17,8 +17,11 @@ public class Handler {
     private String name;
     private String version;
 
-    @OneToMany(mappedBy = "handler", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "handler", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Function> functions;
+
+    @ManyToMany(mappedBy = "availableHandlers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Client> clients;
 
     public Handler(String name, String version) {
         this.name = name;

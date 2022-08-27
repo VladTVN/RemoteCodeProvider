@@ -17,7 +17,7 @@ public class Function {
     private String name;
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Handler handler;
 
     public Function(String name, String code, Handler handler) {
@@ -25,4 +25,5 @@ public class Function {
         this.code = code;
         this.handler = handler;
     }
+
 }
