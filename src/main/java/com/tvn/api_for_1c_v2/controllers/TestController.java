@@ -1,5 +1,6 @@
 package com.tvn.api_for_1c_v2.controllers;
 
+import com.tvn.api_for_1c_v2.exceptions.NotFountException;
 import com.tvn.api_for_1c_v2.persistence.dao.repositories.ClientRepository;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.FunctionService;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.HandlerService;
@@ -23,7 +24,7 @@ public class TestController {
     private ClientRepository clientRepository;
 
     @GetMapping(value = "/hi")
-    public String test(){
+    public String test() throws NotFountException {
 //        handlerService.addHandler(new Handler("test", "1.0"));
 //        Date date = Date.valueOf("2022-08-11");
 //
@@ -33,10 +34,10 @@ public class TestController {
 
 //        Client client = new Client("1","1","1", date, date,list);
 
-        Optional<Client> clientList = clientRepository.findById(1l);
-       Client client = clientList.get();
-
-         Function function = functionService.findFunctionByNameAndHandlerNameVersionClient("1", "1", "1", client);
-         return function.getName();
+//        Optional<Client> clientList = clientRepository.findById(1l);
+//       Client client = clientList.get();
+//
+//         Function function = functionService.findFunctionByNameAndHandlerNameVersionClient("1", "1", "1", client);
+         return "test";
     }
 }

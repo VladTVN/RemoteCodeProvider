@@ -13,5 +13,5 @@ import java.util.Optional;
 @Transactional
 public interface FunctionRepository extends CrudRepository<Function, Long> {
 
-    Function findFirstByNameAndHandler_NameAndHandler_VersionAndHandler_Clients(String name, String handler_name, String handler_version, Client clients);
+    Optional<Function> findFirstByNameAndHandler_NameAndHandler_VersionAndHandler_Clients(String name, String handler_name, String handler_version, Client clients);
 }

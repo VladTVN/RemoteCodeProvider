@@ -32,4 +32,5 @@ public class Client {
         this.keyExpirationDate = keyExpirationDate;
         this.availableHandlers = availableHandlers;
     }
+
 }
