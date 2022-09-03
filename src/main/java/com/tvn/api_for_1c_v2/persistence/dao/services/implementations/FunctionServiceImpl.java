@@ -1,6 +1,6 @@
 package com.tvn.api_for_1c_v2.persistence.dao.services.implementations;
 
-import com.tvn.api_for_1c_v2.exceptions.NotFountException;
+import com.tvn.api_for_1c_v2.exceptions.NotFoundException;
 import com.tvn.api_for_1c_v2.persistence.dao.repositories.FunctionRepository;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.FunctionService;
 import com.tvn.api_for_1c_v2.persistence.model.Client;
@@ -15,11 +15,11 @@ public class FunctionServiceImpl implements FunctionService {
     private FunctionRepository functionRepository;
 
     @Override
-    public Function findFunctionByNameAndHandlerNameVersionClient(String functionName, String handlerName, String handlerVersion, Client client) throws NotFountException{
+    public Function findFunctionByNameAndHandlerNameVersionClient(String functionName, String handlerName, String handlerVersion, Client client) throws NotFoundException {
 
         return functionRepository
                 .findFirstByNameAndHandler_NameAndHandler_VersionAndHandler_Clients(functionName, handlerName, handlerVersion, client)
-                .orElseThrow(NotFountException::new);
+                .orElseThrow(NotFoundException::new);
     }
 
 

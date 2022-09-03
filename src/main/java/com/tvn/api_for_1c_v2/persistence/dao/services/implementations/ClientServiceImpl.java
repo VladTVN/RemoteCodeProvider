@@ -1,6 +1,6 @@
 package com.tvn.api_for_1c_v2.persistence.dao.services.implementations;
 
-import com.tvn.api_for_1c_v2.exceptions.NotFountException;
+import com.tvn.api_for_1c_v2.exceptions.NotFoundException;
 import com.tvn.api_for_1c_v2.persistence.dao.repositories.ClientRepository;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.ClientService;
 import com.tvn.api_for_1c_v2.persistence.model.Client;
@@ -17,10 +17,10 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
-    public Client findByLicenseKey(String licenseKey) throws NotFountException {
+    public Client findByLicenseKey(String licenseKey) throws NotFoundException {
         Optional<Client> clientOptional = clientRepository.findByLicenseKey(licenseKey);
 
-        return clientOptional.orElseThrow(NotFountException::new);
+        return clientOptional.orElseThrow(NotFoundException::new);
 
     }
 
