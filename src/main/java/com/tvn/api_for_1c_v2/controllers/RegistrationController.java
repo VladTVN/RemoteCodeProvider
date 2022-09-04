@@ -20,11 +20,11 @@ public class RegistrationController {
         return "registration";
     }
 
-    @PostMapping("registration")
+    @PostMapping("/registration")
     public String addUser(@RequestParam("password2") String password2, User user, Model model){
 
-        boolean isConfirmEmpty = StringUtils.hasLength(password2);
-        if (!isConfirmEmpty){
+        boolean isConfirmEmpty = !StringUtils.hasLength(password2);
+        if (isConfirmEmpty){
             model.addAttribute("password2Error","Password confirmation cant be empty");
             return "registration";
         }
@@ -38,7 +38,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        return "redirect:allUsers";
+        return "redirect:home";
     }
 
 }

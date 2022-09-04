@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return false;
         }catch (NotFoundException ex){
             user.setRoles(Collections.singleton(Role.ADMIN));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return true;
         }
