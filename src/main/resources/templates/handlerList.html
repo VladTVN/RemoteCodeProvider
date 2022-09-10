@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LogIn</title>
+    <th:block th:include="parts/header :: head"/>
+</head>
+<body>
+<div  id="accordion">
+    <section th:each="handlerChain : ${handlerMap}" th:with="chainName=${handlerChain.key}">
+        <div class="card">
+                    <div class="card-header" th:id="${chainName}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" th:data-target="'#collapse' + ${chainName}"  aria-expanded="false" th:aria-controls="${chainName}" th:text = "${chainName}">
+                            </button>
+                        </h5>
+                    </div>
+
+            <div th:id="'collapse' + ${chainName}" class="collapse" th:aria-labelledby="${chainName}" data-parent="#accordion">
+
+                <div class="card-body">
+                    <section th:each="handler : ${handlerChain.value}">
+                    <a th:href = "'/handler/' + ${handler.id}" th:text="${handler.version}"/>
+                    </section>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
