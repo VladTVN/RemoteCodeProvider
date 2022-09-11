@@ -14,4 +14,7 @@ import java.util.Optional;
 public interface FunctionRepository extends CrudRepository<Function, Long> {
 
     Optional<Function> findFirstByNameAndHandler_NameAndHandler_VersionAndHandler_Clients(String name, String handler_name, String handler_version, Client clients);
+
+    List<Function> findAllByHandler_IdOrderByNameAsc(Long id);
+
 }

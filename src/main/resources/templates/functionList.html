@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LogIn</title>
+    <th:block th:include="parts/header :: head"/>
+</head>
+<body>
+<h1 th:text="${operationStatus}"/>
+<div  id="accordion" th:with="handlerId=${handlerId}">
+    <section th:each="function : ${functionList}" >
+        <div class="card">
+                    <div class="card-header" th:id="${function.name}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" th:data-target="'#collapse' + ${function.name}"  aria-expanded="false" th:aria-controls="${function.name}" th:text = "${function.name}">
+                            </button>
+                        </h5>
+                    </div>
+
+            <div th:id="'collapse' + ${function.name}" class="collapse" th:aria-labelledby="${function.name}" data-parent="#accordion">
+
+                <div class="card-body">
+
+                    <form  th:action="@{'/updateFunction/' + ${handlerId}}" method="post">
+                        <p><label for="functionCode">Code</label></p>
+                        <input type="hidden" name="functionId" th:value="${function.id}">
+                        <p><textarea id="functionCode" name="functionCode" th:text="${function.code}"></textarea></p>
+                        <p><input type="submit" value="Save"></p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
