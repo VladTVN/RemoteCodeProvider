@@ -45,8 +45,7 @@ public class FunctionServiceImpl implements FunctionService {
 
     @Override
     public void addFunction(String name, String code, Handler handler) {
-        Function function = new Function(name, code, new Handler());
-
+        Function function = new Function(name, code, handler);
         functionRepository.save(function);
     }
 

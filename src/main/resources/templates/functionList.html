@@ -7,6 +7,29 @@
 <body>
 <h1 th:text="${operationStatus}"/>
 <div  id="accordion" th:with="handlerId=${handlerId}">
+    <div class="card">
+        <div class="card-header" id="addFunction">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddFunction"  aria-expanded="false" aria-controls="addFunction" th:text = "'Add new function'">
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseAddFunction" class="collapse" aria-labelledby="addFunction" data-parent="#accordion">
+            <div class="card-body">
+                <form  th:action="@{'/addFunction/' + ${handlerId}}" method="post">
+                    <p><label for="functionName">Name</label></p>
+                    <p><input id="functionName" type="text" name="functionName"></p><br>
+
+                    <p><label for="functionCodeAdd">Code</label></p>
+                    <p><textarea id="functionCodeAdd" name="functionCode"></textarea></p>
+
+                    <p><input type="submit" value="Save"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <section th:each="function : ${functionList}" >
         <div class="card">
                     <div class="card-header" th:id="${function.name}">

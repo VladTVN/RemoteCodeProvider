@@ -1,5 +1,6 @@
 package com.tvn.api_for_1c_v2.persistence.dao.services.implementations;
 
+import com.tvn.api_for_1c_v2.exceptions.NotFoundException;
 import com.tvn.api_for_1c_v2.persistence.dao.repositories.HandlerRepository;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.HandlerService;
 import com.tvn.api_for_1c_v2.persistence.model.Handler;
@@ -27,7 +28,8 @@ public class HandlerServiceImpl implements HandlerService {
     }
 
     @Override
-    public void addHandler(Handler handler) {
+    public void addHandler(String name, String version) {
+        Handler handler = new Handler(name, version);
         handlerRepository.save(handler);
     }
 
@@ -62,6 +64,12 @@ public class HandlerServiceImpl implements HandlerService {
         }
 
         return handlerMap;
+    }
+
+    @Override
+    public Handler findById(Long id) throws NotFoundException {
+
+        return handlerRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
 
