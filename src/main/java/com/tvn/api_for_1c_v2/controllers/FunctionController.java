@@ -24,9 +24,16 @@ public class FunctionController {
 
 
     @GetMapping("/handler/{id}")
-    public String handlerFunctions(@PathVariable Long id, Model model){
+    public String handlerFunctions(@PathVariable Long id,
+                                   @RequestParam(required = false, defaultValue = "") String filter,
+                                   Model model) {
+        List<Function> functionList;
 
-        List<Function> functionList = functionService.findHandlerFunctionsByHandlerId(id);
+        if (!filter.isEmpty()) {
+            functionList = functionService.findHandlerFunctionsByHandlerIdAndFunctionName(id, filter);
+        } else {
+            functionList = functionService.findHandlerFunctionsByHandlerId(id);
+        }
         if (!model.containsAttribute("operationStatus")) {
             model.addAttribute("operationStatus", "");
         }
@@ -39,7 +46,7 @@ public class FunctionController {
     @PostMapping("/updateFunction/{handlerId}")
     public String updateHandlerFunction(@PathVariable Long handlerId,
                                         @RequestParam("functionId") Long functionId,
-                                        @RequestParam("functionCode") String functionCode, RedirectAttributes atr){
+                                        @RequestParam("functionCode") String functionCode, RedirectAttributes atr) {
 
         try {
             functionService.updateFunction(functionId, functionCode);
@@ -54,13 +61,13 @@ public class FunctionController {
     @PostMapping("/addFunction/{handlerId}")
     public String addHandlerFunction(@PathVariable Long handlerId,
                                      @RequestParam("functionName") String functionName,
-                                     @RequestParam("functionCode") String functionCode, RedirectAttributes atr){
+                                     @RequestParam("functionCode") String functionCode, RedirectAttributes atr) {
 
         try {
             Handler handler = handlerService.findById(handlerId);
             functionService.addFunction(functionName, functionCode, handler);
             atr.addFlashAttribute("operationStatus", "Function has been successfully added");
-        } catch (NotFoundException e){
+        } catch (NotFoundException e) {
             atr.addFlashAttribute("operationStatus", "A server processing error has occurred. Function has not been added");
         }
 

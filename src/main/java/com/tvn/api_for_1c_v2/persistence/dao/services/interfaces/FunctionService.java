@@ -16,4 +16,6 @@ public interface FunctionService {
     Function findFunctionByNameAndHandlerNameVersionClient(String functionName, String handlerName, String handlerVersion, Client client) throws NotFoundException;
 
     List<Function> findHandlerFunctionsByHandlerId(Long id);
+
+    List<Function> findHandlerFunctionsByHandlerIdAndFunctionName(Long id, String name);
 }

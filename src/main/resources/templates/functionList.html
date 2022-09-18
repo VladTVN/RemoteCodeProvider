@@ -6,7 +6,17 @@
 </head>
 <body>
 <h1 th:text="${operationStatus}"/>
+
 <div  id="accordion" th:with="handlerId=${handlerId}">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <form method="get" th:action="@{'/handler/' + ${handlerId}}" class="form-inline">
+                <input type="text" name="filter" class="form-control" placeholder="Find by name">
+                <button type="submit" class="btn btn-primary mr-2">Search</button>
+            </form>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header" id="addFunction">
             <h5 class="mb-0">

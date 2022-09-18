@@ -41,9 +41,16 @@ public class HandlerServiceImpl implements HandlerService {
         return handlerList;
     }
 
-    public Map<String, List<Handler>> getMapHandlerNameHandler(){
+    public Map<String, List<Handler>> getMapHandlerNameHandler(String filter){
 
-        List<Handler> handlerList = handlerRepository.findAllByOrderByNameAsc();
+        List<Handler> handlerList;
+
+        if(!filter.isEmpty()){
+            handlerList = handlerRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(filter);
+        }else {
+            handlerList = handlerRepository.findAllByOrderByNameAsc();
+        }
+
         if (handlerList == null){
             return new HashMap<>();
         }

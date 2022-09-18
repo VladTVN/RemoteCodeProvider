@@ -17,4 +17,5 @@ public interface FunctionRepository extends CrudRepository<Function, Long> {
 
     List<Function> findAllByHandler_IdOrderByNameAsc(Long id);
 
+    List<Function> findAllByHandler_IdAndNameContainingIgnoreCase(Long id, String name);
 }

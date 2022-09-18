@@ -19,9 +19,9 @@ public class HandlerController {
     private HandlerService handlerService;
 
     @GetMapping("/handler")
-    public String allHandlers(Model model){
+    public String allHandlers(@RequestParam(required = false, defaultValue = "")String filter, Model model){
 
-        Map<String, List<Handler>> handlerMap = handlerService.getMapHandlerNameHandler();
+        Map<String, List<Handler>> handlerMap = handlerService.getMapHandlerNameHandler(filter);
 
         if (!model.containsAttribute("operationStatus")) {
             model.addAttribute("operationStatus", "");

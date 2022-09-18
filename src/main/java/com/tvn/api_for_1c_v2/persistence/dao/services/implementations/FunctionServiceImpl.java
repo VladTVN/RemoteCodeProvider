@@ -35,8 +35,10 @@ public class FunctionServiceImpl implements FunctionService {
         return functionList;
     }
 
-
-// -----------------------------------------   For Test
+    @Override
+    public List<Function> findHandlerFunctionsByHandlerIdAndFunctionName(Long id, String name) {
+        return functionRepository.findAllByHandler_IdAndNameContainingIgnoreCase(id, name.toLowerCase());
+    }
 
     @Override
     public String findAll() {
@@ -57,6 +59,8 @@ public class FunctionServiceImpl implements FunctionService {
         functionRepository.save(function);
 
     }
+
+
 
 
 }

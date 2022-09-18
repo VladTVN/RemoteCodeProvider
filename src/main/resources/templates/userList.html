@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Home</title>
+    <th:block th:include="parts/header :: head"/>
+</head>
+<body>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="user : ${userList}">
+        <td th:text="${user.username}"/>
+        <td th:text="${user.roles}"/>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>

@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface HandlerRepository extends CrudRepository<Handler, Long> {
     Handler findFirstByNameAndVersion(String name, String version);
     List<Handler> findAllByOrderByNameAsc();
-
+    List<Handler> findAllByNameContainingIgnoreCaseOrderByNameAsc(String name);
     Optional<Handler> findById(Long id);
+
 }

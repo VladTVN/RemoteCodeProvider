@@ -12,6 +12,6 @@ public interface HandlerService {
 
     Handler findHandlerByNameAndVersion(String name, String version);
     List<Handler> findAllByOrderByNameAsc();
-    Map<String, List<Handler>> getMapHandlerNameHandler();
+    Map<String, List<Handler>> getMapHandlerNameHandler(String filter);
     Handler findById(Long id) throws NotFoundException;
 }
