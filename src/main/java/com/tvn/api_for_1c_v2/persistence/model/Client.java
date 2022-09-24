@@ -1,7 +1,9 @@
 package com.tvn.api_for_1c_v2.persistence.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -33,4 +35,11 @@ public class Client {
         this.availableHandlers = availableHandlers;
     }
 
+    public Client(String name, String hardwareHashCode, String licenseKey, Date keyRegistrationDate, Date keyExpirationDate) {
+        this.name = name;
+        this.hardwareHashCode = hardwareHashCode;
+        this.licenseKey = licenseKey;
+        this.keyRegistrationDate = keyRegistrationDate;
+        this.keyExpirationDate = keyExpirationDate;
+    }
 }

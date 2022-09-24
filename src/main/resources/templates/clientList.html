@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <title>Home</title>
+    <th:block th:include="parts/header :: head"/>
+</head>
+<body>
+<h1 th:text="${operationStatus}"/>
+<div  id="accordion">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <form method="get" th:action="@{/client}" class="form-inline">
+                <input type="text" name="filter" class="form-control" placeholder="Find by name">
+                <button type="submit" class="btn btn-primary mr-2">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="addClient">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddClient"  aria-expanded="false" aria-controls="addClient" th:text = "'Add new client'">
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseAddClient" class="collapse" aria-labelledby="addClient" data-parent="#accordion">
+            <div class="card-body">
+                <form  th:action="@{/addClient}" method="post">
+                    <p><label for="name">Name</label>
+                    <input id="name" type="text" name="name"></p>
+
+                    <p><label for="hardwareHashCode">Hardware hashcode</label>
+                    <input type="text" id="hardwareHashCode" name="hardwareHashCode"></p>
+
+                    <p><label for="keyRegistrationDate">Key registration date</label>
+                    <input type="date" id="keyRegistrationDate" name="keyRegistrationDate"></p>
+
+                    <p><label for="keyExpirationDate">Key expiration date</label>
+                    <input type="date" id="keyExpirationDate" name="keyExpirationDate"></p>
+
+                    <p><input type="submit" value="Save"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Hardware HashCode</th>
+        <th scope="col">Key registration date</th>
+        <th scope="col">Key expiration date</th>
+        <th scope="col">License key</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr  th:each="client : ${clientList}">
+        <td th:text="${client.name}"/>
+        <td th:text="${client.hardwareHashCode}"/>
+        <td th:text="${client.keyRegistrationDate}"/>
+        <td th:text="${client.keyExpirationDate}"/>
+        <td th:text="${client.licenseKey}"/>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>
