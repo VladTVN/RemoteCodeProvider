@@ -59,7 +59,7 @@
     <tbody>
 
     <tr  th:each="client : ${clientList}">
-        <td th:text="${client.name}"/>
+        <td ><a th:href="@{'/client/' + ${client.id}}" th:text="${client.name}"/></td>
         <td th:text="${client.hardwareHashCode}"/>
         <td th:text="${client.keyRegistrationDate}"/>
         <td th:text="${client.keyExpirationDate}"/>

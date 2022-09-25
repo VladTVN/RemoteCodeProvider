@@ -19,4 +19,6 @@ public interface ClientService {
     Client findByName(String name) throws NotFoundException;
 
     List<Client> findAllByNameContaining(String filter);
+
+    Client findById(Long id) throws NotFoundException;
 }

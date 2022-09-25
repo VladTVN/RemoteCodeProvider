@@ -5,39 +5,39 @@
     <th:block th:include="parts/header :: head"/>
 </head>
 <body>
-<h1 th:text="${operationStatus}"/>
+<!--<h1 th:text="${operationStatus}"/>-->
 <div  id="accordion">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <form method="get" th:action="@{/handler}" class="form-inline">
+            <form method="get" th:action="@{'/client/' +${clientId}}" class="form-inline">
                 <input type="text" name="filter" class="form-control" placeholder="Find by name">
                 <button type="submit" class="btn btn-primary mr-2">Search</button>
             </form>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header" id="addFunction">
-            <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddHandler"  aria-expanded="false" aria-controls="addHandler" th:text = "'Add new handler'">
-                </button>
-            </h5>
-        </div>
+<!--    <div class="card">-->
+<!--        <div class="card-header" id="addFunction">-->
+<!--            <h5 class="mb-0">-->
+<!--                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddHandler"  aria-expanded="false" aria-controls="addHandler" th:text = "'Add new handler'">-->
+<!--                </button>-->
+<!--            </h5>-->
+<!--        </div>-->
 
-        <div id="collapseAddHandler" class="collapse" aria-labelledby="addHandler" data-parent="#accordion">
-            <div class="card-body">
-                <form  th:action="@{/addHandler}" method="post">
-                    <p><label for="handlerName">Name</label></p>
-                    <p><input id="handlerName" type="text" name="handlerName"></p><br>
+<!--        <div id="collapseAddHandler" class="collapse" aria-labelledby="addHandler" data-parent="#accordion">-->
+<!--            <div class="card-body">-->
+<!--                <form  th:action="@{/addHandler}" method="post">-->
+<!--                    <p><label for="handlerName">Name</label></p>-->
+<!--                    <p><input id="handlerName" type="text" name="handlerName"></p><br>-->
 
-                    <p><label for="handlerVersion">Version</label></p>
-                    <p><input id="handlerVersion" type="text" name="handlerVersion"></p>
+<!--                    <p><label for="handlerVersion">Version</label></p>-->
+<!--                    <p><input id="handlerVersion" type="text" name="handlerVersion"></p>-->
 
-                    <p><input type="submit" value="Save"></p>
-                </form>
-            </div>
-        </div>
-    </div>
+<!--                    <p><input type="submit" value="Save"></p>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <section th:each="handlerChain : ${handlerMap}" th:with="chainName=${handlerChain.key}">
         <div class="card">

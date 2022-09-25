@@ -3,6 +3,7 @@ package com.tvn.api_for_1c_v2.persistence.dao.services.implementations;
 import com.tvn.api_for_1c_v2.exceptions.NotFoundException;
 import com.tvn.api_for_1c_v2.persistence.dao.repositories.HandlerRepository;
 import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.HandlerService;
+import com.tvn.api_for_1c_v2.persistence.model.Client;
 import com.tvn.api_for_1c_v2.persistence.model.Handler;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class HandlerServiceImpl implements HandlerService {
             handlerList = handlerRepository.findAllByOrderByNameAsc();
         }
 
+        return groupListIntoMap(handlerList);
+    }
+
+    private Map<String, List<Handler>> groupListIntoMap(List<Handler> handlerList) {
         if (handlerList == null){
             return new HashMap<>();
         }
@@ -69,8 +74,20 @@ public class HandlerServiceImpl implements HandlerService {
                 handlerMap.put(handlerName, newChainHandler);
             }
         }
-
         return handlerMap;
+    }
+
+    @Override
+    public Map<String, List<Handler>> getClientsMapHandlerNameHandler(String filter, List<Client> clients) {
+
+        List<Handler> handlerList;
+        if (filter.isEmpty()) {
+            handlerList = handlerRepository.findAllByClientsIn(clients);
+        }else {
+            handlerList = handlerRepository.findAllByClientsInAndName(clients, filter);
+        }
+
+        return groupListIntoMap(handlerList);
     }
 
     @Override

@@ -5,6 +5,46 @@
     <th:block th:include="parts/header :: head"/>
 </head>
 <body>
+<div  id="accordion">
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <form method="get" th:action="@{/client}" class="form-inline">
+            <input type="text" name="filter" class="form-control" placeholder="Find by name">
+            <button type="submit" class="btn btn-primary mr-2">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header" id="addUser">
+        <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddUser"  aria-expanded="false" aria-controls="addUser" th:text = "'Add new user'">
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseAddUser" class="collapse" aria-labelledby="addUser" data-parent="#accordion">
+        <div class="card-body">
+            <form th:action="@{/registration}" method="post" >
+                <div>
+                    <label for="username">User name:</label>
+                    <input type="text" id="username" name="username" placeholder="Username">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password">
+                </div>
+                <div>
+                    <label for="password2">Password2</label>
+                    <input type="password" id="password2" name="password2" placeholder="Password2">
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
 <table class="table table-striped">
     <thead>
     <tr>

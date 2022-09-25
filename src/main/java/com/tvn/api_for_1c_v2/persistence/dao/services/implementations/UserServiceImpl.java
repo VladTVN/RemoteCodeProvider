@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userRepository.findByUsername(user.getUsername()).orElseThrow(NotFoundException::new);
             return false;
         }catch (NotFoundException ex){
-            user.setRoles(Collections.singleton(Role.ADMIN));
+            user.setRoles(Collections.singleton(Role.USER));
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return true;

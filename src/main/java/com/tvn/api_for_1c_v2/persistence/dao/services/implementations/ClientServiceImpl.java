@@ -68,5 +68,10 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findAllByNameContainingIgnoreCase(filter.toLowerCase());
     }
 
+    @Override
+    public Client findById(Long id) throws NotFoundException {
+        return clientRepository.findById(id).orElseThrow(NotFoundException::new);
+    }
+
 
 }
