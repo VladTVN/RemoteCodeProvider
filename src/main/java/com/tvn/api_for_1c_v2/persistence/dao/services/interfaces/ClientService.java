@@ -21,4 +21,5 @@ public interface ClientService {
     List<Client> findAllByNameContaining(String filter);
 
     Client findById(Long id) throws NotFoundException;
+    boolean updateClient(Client client) throws NotFoundException;
 }

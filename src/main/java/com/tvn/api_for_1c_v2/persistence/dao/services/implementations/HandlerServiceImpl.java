@@ -96,5 +96,18 @@ public class HandlerServiceImpl implements HandlerService {
         return handlerRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
+    @Override
+    public Map<String, List<Handler>> findHandlersWhereClientsNotIn(String filter, List<Client> clientList) {
+        List<Handler> handlerList;
+        if (filter.isEmpty()) {
+            handlerList = handlerRepository.findAllByClientsNotInOrClientsEmpty(clientList);
+        }else {
+            handlerList = handlerRepository.findAllByNameAndClientsNotInAndClients_Empty(filter, clientList);
+        }
+
+        return groupListIntoMap(handlerList);
+
+    }
+
 
 }

@@ -54,9 +54,13 @@ public class ClientController {
         clientList.add(client);
 
         Map<String, List<Handler>> handlerMap = handlerService.getClientsMapHandlerNameHandler(filter, clientList);
-//        Map<String, List<Handler>> handlerMapNoAdded = handlerService.
+        Map<String, List<Handler>> handlerMapNoAdded = handlerService.findHandlersWhereClientsNotIn(filter, clientList);
 
+        if (!model.containsAttribute("operationStatus")) {
+            model.addAttribute("operationStatus", "");
+        }
 
+        model.addAttribute("handlerMapNoAdded", handlerMapNoAdded);
         model.addAttribute("handlerMap", handlerMap);
         model.addAttribute("clientId", id);
 
@@ -82,5 +86,38 @@ public class ClientController {
     }
 
 
+    @PostMapping("/addHandlerToClient/{clientId}")
+    public String addHandlerToClient(@PathVariable(name = "clientId") Long clientId, @RequestParam(name = "handlerId") Long handlerId, RedirectAttributes redirectAttributes) throws NotFoundException {
+
+        Client client = clientService.findById(clientId);
+        Handler handler = handlerService.findById(handlerId);
+
+        if (!client.getAvailableHandlers().contains(handler)) {
+            client.getAvailableHandlers().add(handler);
+            clientService.updateClient(client);
+            redirectAttributes.addFlashAttribute("operationStatus","Handler successfully added to client");
+        }else{
+            redirectAttributes.addFlashAttribute("operationStatus","The client already has access to the handler");
+        }
+
+        return "redirect:/client/"+clientId;
+    }
+
+    @PostMapping("/deleteHandlerToClient/{clientId}")
+    public String deleteHandlerToClient(@PathVariable(name = "clientId") Long clientId, @RequestParam(name = "handlerId") Long handlerId, RedirectAttributes redirectAttributes) throws NotFoundException {
+
+        Client client = clientService.findById(clientId);
+        Handler handler = handlerService.findById(handlerId);
+
+        if (client.getAvailableHandlers().contains(handler)) {
+            client.getAvailableHandlers().remove(handler);
+            clientService.updateClient(client);
+            redirectAttributes.addFlashAttribute("operationStatus","The handler was successfully removed from the client");
+        }else{
+            redirectAttributes.addFlashAttribute("operationStatus","The client does not have access to this handler");
+        }
+
+        return "redirect:/client/"+clientId;
+    }
 
 }

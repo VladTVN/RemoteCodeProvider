@@ -73,5 +73,11 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
+    @Override
+    public boolean updateClient(Client client) {
+        clientRepository.save(client);
+        return true;
+    }
+
 
 }

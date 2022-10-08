@@ -17,4 +17,6 @@ public interface HandlerService {
     Map<String, List<Handler>> getClientsMapHandlerNameHandler(String filter, List<Client> clients);
     Handler findById(Long id) throws NotFoundException;
 
+    Map<String, List<Handler>> findHandlersWhereClientsNotIn(String filter, List<Client> clientList);
+
 }

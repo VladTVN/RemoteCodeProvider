@@ -5,7 +5,8 @@
     <th:block th:include="parts/header :: head"/>
 </head>
 <body>
-<!--<h1 th:text="${operationStatus}"/>-->
+<h1 th:text="${operationStatus}"/>
+
 <div  id="accordion">
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -15,31 +16,9 @@
             </form>
         </div>
     </div>
+    <label for="accordionAvailable">Handlers available to the client</label>
+    <section id="accordionAvailable" th:each="handlerChain : ${handlerMap}" th:with="chainName=${handlerChain.key}">
 
-<!--    <div class="card">-->
-<!--        <div class="card-header" id="addFunction">-->
-<!--            <h5 class="mb-0">-->
-<!--                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddHandler"  aria-expanded="false" aria-controls="addHandler" th:text = "'Add new handler'">-->
-<!--                </button>-->
-<!--            </h5>-->
-<!--        </div>-->
-
-<!--        <div id="collapseAddHandler" class="collapse" aria-labelledby="addHandler" data-parent="#accordion">-->
-<!--            <div class="card-body">-->
-<!--                <form  th:action="@{/addHandler}" method="post">-->
-<!--                    <p><label for="handlerName">Name</label></p>-->
-<!--                    <p><input id="handlerName" type="text" name="handlerName"></p><br>-->
-
-<!--                    <p><label for="handlerVersion">Version</label></p>-->
-<!--                    <p><input id="handlerVersion" type="text" name="handlerVersion"></p>-->
-
-<!--                    <p><input type="submit" value="Save"></p>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-    <section th:each="handlerChain : ${handlerMap}" th:with="chainName=${handlerChain.key}">
         <div class="card">
                     <div class="card-header" th:id="${chainName}">
                         <h5 class="mb-0">
@@ -52,14 +31,50 @@
 
                 <div class="card-body">
                     <section th:each="handler : ${handlerChain.value}">
-                    <a th:href = "@{'/handler/' + ${handler.id}}" th:text="${handler.version}"/>
+                        <form method="post" th:action="@{'/deleteHandlerToClient/' +${clientId}}" >
+                            <a th:href = "@{'/handler/' + ${handler.id}}" th:text="${handler.version}"/>
+                            <input type="hidden" th:value="${handler.id}" name="handlerId">
+                            <button type="submit" class="btn btn-primary mr-2">Delete</button>
+                        </form>
                     </section>
                 </div>
+
             </div>
 
         </div>
     </section>
+
+    <label for="accordionNoAvailable">Handlers are not available to the client</label>
+    <section id="accordionNoAvailable" th:each="handlerChain : ${handlerMapNoAdded}" th:with="chainName=${handlerChain.key}">
+
+        <div class="card">
+            <div class="card-header" th:id="'delete'+${chainName}">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" th:data-target="'#collapseDelete' + ${chainName}"  aria-expanded="false" th:aria-controls="'delete'+${chainName}" th:text = "${chainName}">
+                    </button>
+                </h5>
+            </div>
+
+            <div th:id="'collapseDelete' + ${chainName}" class="collapse" th:aria-labelledby="'delete' + ${chainName}" data-parent="#accordion">
+
+                <div class="card-body">
+                    <section th:each="handler : ${handlerChain.value}">
+                        <form method="post" th:action="@{'/addHandlerToClient/' +${clientId}}">
+                            <a th:href = "@{'/handler/' + ${handler.id}}" th:text="${handler.version}"/>
+                            <input type="hidden" th:value="${handler.id}" name="handlerId">
+                            <button type="submit" class="btn btn-primary mr-2">Add</button>
+                        </form>
+                    </section>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
 </div>
+
+
 
 </body>
 </html>
