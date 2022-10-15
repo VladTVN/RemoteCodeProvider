@@ -1,12 +1,9 @@
 package com.tvn.api_for_1c_v2.config;
 
-import com.tvn.api_for_1c_v2.persistence.dao.services.implementations.UserServiceImpl;
-import com.tvn.api_for_1c_v2.persistence.dao.services.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +26,11 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/remoteCodeProvider/**").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/user/**", "/client/**", "/addClient/**",
+                        "/addHandlerToClient/**", "/deleteHandlerToClient/**", "/registration/**").hasAuthority("ADMIN")
+                .antMatchers("/handler/**", "/updateFunction/**",
+                        "/addFunction/**", "/addHandler/**").hasAnyAuthority("ADMIN","USER")
+                .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
